@@ -1,90 +1,58 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Movie } from "types/movie";
-import { BASE_URL } from "utils/requests";
-import { validateEmail } from "utils/validate";
+import { ReactComponent as StarFull } from "assets/img/star-full.svg";
+import { ReactComponent as StarHalf } from "assets/img/star-half.svg";
+import { ReactComponent as StarEmpty } from "assets/img/star-empty.svg";
 import "./styles.css";
 
 type Props = {
-  movieId: string;
+  score: number;
 };
 
-function FormCard({ movieId }: Props) {
-  const navigate = useNavigate();
+type StarProps = {
+  fill: number;
+};
 
-  const [movie, setMovie] = useState<Movie>();
+// EX:
+// getFills(3.5) => [1, 1, 1, 0.5, 0]
+// getFills(4.1) => [1, 1, 1, 1, 0.5]
+function getFills(score: number) {
+  const fills = [0, 0, 0, 0, 0];
 
-  useEffect(() => {
-    axios.get(`${BASE_URL}/movies/${movieId}`).then((response) => {
-      setMovie(response.data);
-    });
-  });
+  const integerPart = Math.floor(score);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  for (let i = 0; i < integerPart; i++) {
+    fills[i] = 1;
+  }
 
-    const email = (event.target as any).email.value;
+  const diff = score - integerPart;
+  if (diff > 0) {
+    fills[integerPart] = 0.5;
+  }
 
-    const score = (event.target as any).score.value;
+  return fills;
+}
 
-    if (!validateEmail(email)) {
-      return;
-    }
+function Star({ fill }: StarProps) {
+  if (fill === 0) {
+    return <StarEmpty />;
+  } else if (fill === 1) {
+    return <StarFull />;
+  } else {
+    return <StarHalf />;
+  }
+}
 
-    const config: AxiosRequestConfig = {
-      baseURL: BASE_URL,
-      method: "PUT",
-      url: "/scores",
-      data: {
-        email: email,
-        movieId: movieId,
-        score: score,
-      },
-    };
-
-    axios(config).then((response) => {
-      navigate("/");
-    });
-  };
+function MovieStars({ score }: Props) {
+  const fills = getFills(score);
 
   return (
-    <div className="dsmovie-form-container">
-      <img
-        className="dsmovie-movie-card-image"
-        src={movie?.image}
-        alt={movie?.title}
-      />
-      <div className="dsmovie-card-bottom-container">
-        <h3>{movie?.title}</h3>
-        <form className="dsmovie-form" onSubmit={handleSubmit}>
-          <div className="form-group dsmovie-form-group">
-            <label htmlFor="email">Informe seu email</label>
-            <input type="email" className="form-control" id="email" />
-          </div>
-          <div className="form-group dsmovie-form-group">
-            <label htmlFor="score">Informe sua avaliação</label>
-            <select className="form-control" id="score">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-          <div className="dsmovie-form-btn-container">
-            <button type="submit" className="btn btn-primary dsmovie-btn">
-              Salvar
-            </button>
-          </div>
-        </form>
-
-        <Link to="/">
-          <button className="btn btn-primary dsmovie-btn mt-3">Cancelar</button>
-        </Link>
-      </div>
+    <div className="dsmovie-stars-container">
+      <Star fill={fills[0]} />
+      <Star fill={fills[1]} />
+      <Star fill={fills[2]} />
+      <Star fill={fills[3]} />
+      <Star fill={fills[4]} />
     </div>
   );
 }
 
-export default FormCard;
+export default MovieStars;
