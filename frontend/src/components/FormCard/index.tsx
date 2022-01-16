@@ -54,16 +54,16 @@ const FormCard = ({ movieId }: Props) => {
   };
 
   return (
-    <div className="dsmovie_form_container">
+    <div className="lidia-dsmovie_form_container">
       <img
-        className="dsmovie_movie_card_image"
+        className="-lidiadsmovie_movie_card_image"
         src={movie?.image}
         alt={movie?.title}
       />
-      <div className="dsmovie_card_bottom_container">
+      <div className="lidia-dsmovie_card_bottom_container">
         <h3>{movie?.title}</h3>
-        <form className="dsmovie_form" onSubmit={handleSubmit}>
-          <div className="form-group dm-movie_form_group">
+        <form className="lidia-dsmovie_form" onSubmit={handleSubmit}>
+          <div className="form-group lidia-dsmovie_form_group">
             <label htmlFor="email">Informe seu email</label>
             <input type="email" className="form-control" id="email" />
           </div>
