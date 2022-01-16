@@ -54,20 +54,20 @@ const FormCard = ({ movieId }: Props) => {
   };
 
   return (
-    <div className="lidia-dsmovie_form_container">
+    <div className="dsmovie_form_container">
       <img
-        className="-lidiadsmovie_movie_card_image"
+        className="-dsmovie_movie_card_image"
         src={movie?.image}
         alt={movie?.title}
       />
-      <div className="lidia-dsmovie_card_bottom_container">
+      <div className="dsmovie_card_bottom_container">
         <h3>{movie?.title}</h3>
-        <form className="lidia-dsmovie_form" onSubmit={handleSubmit}>
-          <div className="form-group lidia-dsmovie_form_group">
+        <form className="dsmovie_form" onSubmit={handleSubmit}>
+          <div className="form-group dsmovie_form_group">
             <label htmlFor="email">Informe seu email</label>
             <input type="email" className="form-control" id="email" />
           </div>
-          <div className="form-group dm-movie_form_group">
+          <div className="form-group dsmovie_form_group">
             <label htmlFor="score">Informe sua avaliação</label>
             <select className="form-control" id="score">
               <option>1</option>
@@ -77,16 +77,14 @@ const FormCard = ({ movieId }: Props) => {
               <option>5</option>
             </select>
           </div>
-          <div className="dm-movie_form_btn_container">
-            <button type="submit" className="btn btn-primary dm-movie_btn">
+          <div className="movie_form_btn_container">
+            <button type="submit" className="btn btn-primary dsmovie_btn">
               Salvar
             </button>
           </div>
         </form>
         <Link to="/">
-          <button className="btn btn-primary dm-movie_btn mt-3">
-            Cancelar
-          </button>
+          <button className="btn btn-primary dsmovie_btn mt-3">Cancelar</button>
         </Link>
       </div>
     </div>
