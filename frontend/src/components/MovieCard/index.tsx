@@ -27,3 +27,4 @@ function MovieCard({ movie }: Props) {
 }
 
 export default MovieCard;
+ 
