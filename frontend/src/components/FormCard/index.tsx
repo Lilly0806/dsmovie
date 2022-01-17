@@ -19,8 +19,8 @@ function FormCard({ movieId }: Props) {
   useEffect(() => {
     axios
       .get(`${BASE_URL}/movies/${movieId}`)
-      .then((res) => {
-        setMovie(res.data);
+      .then((response) => {
+        setMovie(response.data);
       })
       .catch((err) => console.log(err));
   }, [movieId]);
