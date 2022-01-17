@@ -11,7 +11,7 @@ type Props = {
   movieId: string;
 };
 
-const FormCard = ({ movieId }: Props) => {
+function FormCard({ movieId }: Props) {
   const [movie, setMovie] = useState<Movie>();
 
   const navigate = useNavigate();
@@ -89,6 +89,6 @@ const FormCard = ({ movieId }: Props) => {
       </div>
     </div>
   );
-};
+}
 
 export default FormCard;
