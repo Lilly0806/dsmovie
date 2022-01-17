@@ -17,12 +17,9 @@ function FormCard({ movieId }: Props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/movies/${movieId}`)
-      .then((response) => {
-        setMovie(response.data);
-      })
-      .catch((err) => console.log(err));
+    axios.get(`${BASE_URL}/movies/${movieId}`).then((Response) => {
+      setMovie(Response.data);
+    });
   }, [movieId]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -46,11 +43,9 @@ function FormCard({ movieId }: Props) {
       },
     };
 
-    axios(config)
-      .then(() => {
-        navigate("/");
-      })
-      .catch((err) => console.log(err));
+    axios(config).then((Response) => {
+      navigate("/");
+    });
   };
 
   return (
@@ -77,7 +72,7 @@ function FormCard({ movieId }: Props) {
               <option>5</option>
             </select>
           </div>
-          <div className="movie_form_btn_container">
+          <div className="dsmovie_form_btn_container">
             <button type="submit" className="btn btn-primary dsmovie_btn">
               Salvar
             </button>
